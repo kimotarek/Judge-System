@@ -31,10 +31,8 @@ export class LoginComponent {
   submit() {
     //  service with user_login
     this.service.login(this.user_login).subscribe((x) => {
-      if (x.success == 2) {
-        this.router.navigate(['/admin_home/admin_location']);
-      } else if (x.success == 1) {
-        this.router.navigate(['/home/home_bar']);
+       if (x.success == 1) {
+        this.router.navigate(['/judge']);
       } else {
         // this.pop_service.open_error_login();
       }

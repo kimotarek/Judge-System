@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { JudgeComponent } from './judge/judge.component';
+import { ExamJudgeComponent } from './exam-judge/exam-judge.component';
 
 const routes: Routes = [
 
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'judge',
-    component: JudgeComponent,
+    component: ExamJudgeComponent,
   },
 ];
 

@@ -22,4 +22,10 @@ export class ServicService {
 //send user with email and pass if the user not found recive json="success=false"else recive json="success=true ,user:user" with all data
 public login(user:any):Observable<any>{
   return this.http.post<any>(`${this.apiServerUrl}/login`,user, { withCredentials: true });
-}}
+}
+
+public send_exam_code(code:string):Observable<any>{
+  return this.http.post<any>(`${this.apiServerUrl}/verify_exam_code`,{code:code}, { withCredentials: true });
+}
+
+}

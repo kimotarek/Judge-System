@@ -30,6 +30,23 @@ export class ModalPopServiceService {
     }
   }
 
+  public open_error(message:any) {
+    this.error_message =message;
+    this.title = 'Error Message !';
+    const errorMessageElement = document.getElementById('error-message');
+    if (errorMessageElement) {
+      errorMessageElement.textContent = this.error_message;
+    }
+    const title_message = document.getElementById('error-title');
+    if (title_message) {
+      title_message.textContent = this.title;
+    }
+    const modal = document.getElementById('ERROR_login');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
+  }
   
   public close_error() {
     const modal = document.getElementById('ERROR_login');

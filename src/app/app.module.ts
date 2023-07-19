@@ -10,11 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
 import { NgxTypedJsModule } from 'ngx-typed-js';
 import { ServicService } from './service/services.service';
+import { ExamJudgeComponent } from './exam-judge/exam-judge.component';
+import { PopUpComponent } from './pop-up/pop-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    ExamJudgeComponent,
+    PopUpComponent,
   ],
   imports: [
     BrowserModule,
