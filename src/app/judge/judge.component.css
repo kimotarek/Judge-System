@@ -1,0 +1,91 @@
+* {
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .container {
+    width: 100%;
+    min-height:100vh;
+    max-height: fit-content;
+    background: rgba(0, 129, 130, 0.12);
+    background-size: contain;
+    position: relative;
+  }
+  h1{
+    color:#003F3D;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    margin: 2%;
+  }
+  .navbar {
+    background: radial-gradient(
+        313.28% 209.98% at 99.43% 99.22%,
+        #008182 100%,
+        rgba(0, 129, 130, 0) 100%
+      ),
+      #fff;
+    box-shadow: 0px 0px 25px 0px rgba(0, 129, 130, 0.47);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius:20px ;
+  }
+  .navbar p {
+    margin: 1.5%;
+  }
+  .points{
+    position: absolute;
+    right: 5%;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .mcq, .coding {
+    position: relative;
+    margin: 2%;
+    padding: 2%;
+    border: 1px solid #008182;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px 0px rgba(0, 129, 130, 0.47);
+  }
+  .ans input{
+    border-color: #008182;
+    color: #008182;
+  }
+  .ans label{
+    color:#003F3D;
+  }
+  .form-check-input[type="radio"]:checked {
+    background-color: #008182;
+    border-color: #008182; 
+  }
+  .question{
+    font-weight: 700;
+    font-size: 16px;
+    color: #003F3D;
+  }
+  textarea{
+    min-height: 100px;
+    max-height: 300px;
+  }
+  .btn-success{
+    transition: 0.4s;
+    font-weight: 500;
+    background-color: #008182;
+    border-color: #008182;
+    position: absolute;
+    right: 3%;
+    width: 15%;
+  }
+  .btn-success:hover{
+    color: #008182;
+    background-color: #ffffff;
+    border-color: #008182;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .navbar{
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
