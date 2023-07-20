@@ -52,17 +52,35 @@
       {{ questions.question.constraints }}
     </p>
     <span style="display: block">choose language:</span>
-    <select name="language" id="language" (change)="on_language_select($event)">
-      <option value="Select language">Select language</option>
-      <option value="C">C</option>
-      <option value="C++">C++</option>
-      <option value="C#">C#</option>
-      <option value="Python">Python</option>
-      <option value="java">java</option>
+    <select
+      name="language"
+      #select_lan
+      id="language"
+    >
+      <option value="0">Select language</option>
+      <option of value="2">C</option>
+      <option value="1">C++</option>
+      <option value="3">C#</option>
+      <option value="5">Python</option>
+      <option value="4">Java</option>
     </select>
 
-    <textarea [disabled]="select_language=='Select language'" class="form-control" aria-label="With textarea"></textarea>
+    <textarea
+      [disabled]="select_lan.value == '0'"
+      [value]="language[select_lan.value].starter_code"
+      class="form-control"
+      aria-label="With textarea"
+      #answer_coding
+    ></textarea>
+    
+    <div>
+      <button type="button" class="btn btn-success" (click)="check_answer_coding(answer_coding.value,questions.question._id,language[select_lan.value]._id)">
+        Check Answer Of This Question
+      </button>
+    </div>
+
   </div>
+  
   <button type="button" class="btn btn-success">Submit</button>
 </div>
 

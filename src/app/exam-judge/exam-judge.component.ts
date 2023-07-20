@@ -14,13 +14,12 @@ export class ExamJudgeComponent {
   remainingTimeFormatted :any;
   flag_ten_minute :boolean;
   flag_ten_more_popup :boolean;
-  select_language:any;
   constructor(
     private router: Router,
     private service: ServicService,
     private popup: ModalPopServiceService
   ) {
-    this.flag_verify_examcode = false;
+    this.flag_verify_examcode = true;
     this.flag_ten_more_popup=false;
     this.flag_ten_minute = true;
   }
@@ -48,12 +47,64 @@ export class ExamJudgeComponent {
           constraints: 'dasdasd',
           weight: 10,
         },
+        
+      },
+      {
+        question: {
+          _id: '64b56fa9458fdc58f340f996',
+          title: 'efdfsad',
+          description: 'sadawd',
+          input_format: 'dasdaw',
+          output_format: 'asdasd',
+          constraints: 'dasdasd',
+          weight: 10,
+        },
+        
       },
     ],
     title: 'java',
     appointment: '11:03 PM',
     _id: '64b87d34bc3216c6de05dcd1',
   };
+
+  language:any=[
+    {
+      lan:"",
+      id:"",
+      starter_code:"",
+
+    },
+    {
+      lan:"C++",
+      _id:"54",
+      starter_code: "#include <iostream>\n\n int main() {\n std::cout << \"Hello World!\\n\";\n}"
+
+    },
+    {
+      lan:"C",
+      _id:"50",
+      starter_code:"#include <stdio.h>\n\n int main(void) {\n\n return 0;\n}\n"
+
+
+    },{
+      lan:"C#",
+      _id:"51",
+      starter_code:"using System;\n\nclass Program {\n  public static void Main(string[] args) {\n Console.WriteLine(\"Hello World\");\n }\n}"
+
+    },{
+      lan:"java",
+      _id:"91",
+      starter_code:"public class Main {\n public static void main(String[] args) {\n //System.out.println(\"Hello world!\");\n   }\n }"
+
+    },{
+      lan:"Python",
+      _id:"71",
+      starter_code:"",
+
+    }
+  ]
+
+
 
   formatTime(time: any) {
     const timeComponents = time.split(' ');
@@ -122,37 +173,33 @@ export class ExamJudgeComponent {
   }
   // Example usage:
 
-  change_answer(event: any, mcq_id: any,questions:any) {
-    console.log(event);
-    questions.user_answer=event;
-    // this.service.save_answer(this.exam._id,mcq_id,event).subscribe(
-    //   x=>{
-    // })
+  change_answer(value: any, mcq_id: any,questions:any) {
+    console.log(value);
+    questions.user_answer=value;
+    this.service.save_answer(this.exam._id,mcq_id,value).subscribe(
+      x=>{
+    })
   }
 
-  on_language_select(event:any){
-    this.select_language = (event.target as HTMLSelectElement).value;
-    
-  }
+
 
   send_code(input: any) {
-    // this.service.send_exam_code(input).subscribe(
-    //   x=>{
-    //     if(x.success==true){
-    //       this.exam=x.exam
-    //       console.log(x.exam);
-    //       //x.exam
-    // let endTime = this.formatTime(this.exam.appointment);
-    // this.startCountdown(endTime);
-    //   this.flag_verify_examcode=false;
-    //     }
-    //     else{
-    //       this.popup.open_error("verification code is wrong !");
-    //     }
-    // })
+    this.service.send_exam_code(input).subscribe(
+      x=>{
+        if(x.success==true){
+          this.exam=x.exam
+          console.log(x.exam);
+          //x.exam
+    let endTime = this.formatTime(this.exam.appointment);
+    this.startCountdown(endTime);
+      this.flag_verify_examcode=false;
+        }
+        else{
+          this.popup.open_error("verification code is wrong !");
+        }
+    })
   }
 
-  submit() {}
 
   need_more_time(value: any) {
     this.flag_ten_more_popup = false;
@@ -165,4 +212,35 @@ export class ExamJudgeComponent {
     }
 
   }
+
+  submit() {
+
+    this.service.submit(this.exam._id).subscribe(
+      x=>{
+        console.log(x);
+        //lsaaa
+
+    })
+    
+  }
+
+
+  check_answer_coding(value: any, coding_id: any,id_lang: any) {
+
+    this.service.check_answer(this.exam._id,coding_id,value,id_lang).subscribe(
+      x=>{
+        if(x.success==true) {
+          this.popup.open_error(x.result.description);
+        }
+        else{
+          this.popup.open_error("Error Try Again!");
+
+        }
+    })
+
+  }
+
+
+
+
 }

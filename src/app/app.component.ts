@@ -17,7 +17,7 @@ export class AppComponent {
     //   localStorage.removeItem('previousUrl');
     // }
 
-    this.router.navigate(['judge'])
+    this.router.navigate([''])
     
   }
 }

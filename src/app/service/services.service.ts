@@ -30,4 +30,12 @@ public send_exam_code(code:string):Observable<any>{
 public save_answer(saved_exam_id:any,mcq_id:any,user_answer:any):Observable<any>{
   return this.http.post<any>(`${this.apiServerUrl}/examination/set_mcq_answer`,{saved_exam_id:saved_exam_id,mcq_id:mcq_id,user_answer:user_answer}, { withCredentials: true });
 }
+
+public check_answer(saved_exam_id:any,coding_id:any,user_answer:any,language_id:any):Observable<any>{
+  return this.http.post<any>(`${this.apiServerUrl}/examination/run_coding`,{saved_exam_id:saved_exam_id,coding_id:coding_id,user_answer:user_answer,language_id:language_id}, { withCredentials: true });
+}
+
+public submit(saved_exam_id:any):Observable<any>{
+  return this.http.post<any>(`${this.apiServerUrl}/examination/submit_exam`,{saved_exam_id:saved_exam_id}, { withCredentials: true });
+}
 }

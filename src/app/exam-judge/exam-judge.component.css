@@ -112,8 +112,8 @@ color: #003f3d;
   color: #003f3d;
 }
 textarea {
-  min-height: 100px;
-  max-height: 300px;
+  min-height: 180px;
+  max-height: 400px;
 }
 .btn-success {
   transition: 0.4s;
