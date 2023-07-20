@@ -22,8 +22,9 @@
         id="flexRadioDefault1"
         #check
         value={{q}}
+        [checked]="questions.question.user_answer==q"
         [(ngModel)]="questions.question.user_answer"
-        (change)="change_answer($event.target,questions._id)"              />
+        (change)="change_answer(questions.question.user_answer,questions.question._id)"              />
       <label class="form-check-label" for="flexRadioDefault1"> {{q}} </label>
     </div>
   </div>

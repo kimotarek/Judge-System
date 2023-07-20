@@ -74,8 +74,8 @@ export class ExamJudgeComponent {
 
 
  change_answer(event:any,mcq_id:any) {
-
-  this.service.save_answer(this.exam._id,mcq_id,event.value).subscribe(
+  console.log(event);
+  this.service.save_answer(this.exam._id,mcq_id,event).subscribe(
     x=>{
   })
 
@@ -88,7 +88,7 @@ export class ExamJudgeComponent {
       if(x.success==true){
        this.startCountdown();
         this.exam=x.exam
-
+        console.log(x.exam);
         //x.exam
         this.flag_verify_examcode=false;
       }
