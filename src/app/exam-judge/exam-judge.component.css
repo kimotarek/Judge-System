@@ -159,8 +159,24 @@ textarea {
  }
 
  
+.btn-yes{
+  display: block;
 
-
+}
+.btn-no{
+background-color:#ff0044;
+}
+.btn-no:hover{
+  border: 1px #000 solid;
+  background-color:white ;
+  color:#ff0044;
+}
+#language{
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 7px;
+  color:#003f3d ;
+}
 @media only screen and (max-width: 600px) {
   .navbar {
     font-size: 16px;
