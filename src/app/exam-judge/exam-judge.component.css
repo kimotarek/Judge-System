@@ -89,6 +89,12 @@ h1 {
   border-radius: 5px;
   box-shadow: 0px 0px 25px 0px rgba(0, 129, 130, 0.47);
 }
+
+.coding span {
+font-size: 25px;
+color: #003f3d;
+
+}
 .ans input {
   border-color: #008182;
   color: #008182;
@@ -151,6 +157,8 @@ textarea {
     background-color:white ;
     color:#008182;
  }
+
+ 
 
 
 @media only screen and (max-width: 600px) {

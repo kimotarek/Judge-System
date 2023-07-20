@@ -25,7 +25,9 @@ public login(user:any):Observable<any>{
 }
 
 public send_exam_code(code:string):Observable<any>{
-  return this.http.post<any>(`${this.apiServerUrl}/verify_exam_code`,{code:code}, { withCredentials: true });
+  return this.http.post<any>(`${this.apiServerUrl}/examination/get_exam`,{code:code}, { withCredentials: true });
 }
-
+public save_answer(saved_exam_id:any,mcq_id:any,user_answer:any):Observable<any>{
+  return this.http.post<any>(`${this.apiServerUrl}/examination/set_mcq_answer`,{saved_exam_id:saved_exam_id,mcq_id:mcq_id,user_answer:user_answer}, { withCredentials: true });
+}
 }
