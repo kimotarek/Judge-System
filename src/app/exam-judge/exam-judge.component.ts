@@ -80,6 +80,7 @@ export class ExamJudgeComponent {
   })
 
  }
+
  send_code(input:any){
 
   this.service.send_exam_code(input).subscribe(
