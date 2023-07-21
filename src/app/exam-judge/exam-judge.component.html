@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="flag_answers==false" class="container">
   <nav class="navbar navbar-expand w-100">
     <div class="container-fluid">
       <p>{{ remainingTimeFormatted }}</p>
@@ -81,8 +81,64 @@
 
   </div>
   
-  <button type="button" class="btn btn-success">Submit</button>
+  <button type="button" class="btn btn-success" (click)="submit()">Submit</button>
 </div>
+
+
+
+<div *ngIf="flag_answers==true" class="container">
+  <nav class="navbar navbar-expand w-100">
+    <div class="container-fluid">
+      <p> {{remainingTimeFormatted}} </p>
+      <P>{{ exam.title }}</P>
+      <p>Total: {{ exam.mcq.length + exam.coding.length }} questions</p>
+    </div>
+  </nav>
+  <h1 class="grade"> Your Grade {{percentage}} out of 100</h1>
+  <!-- ng for ya kimo -->
+  <div class="mcq" *ngFor="let questions of exam.mcq; let j = index">
+    <label *ngIf="questions.user_answer!=answer[j]" class="points wrong_points" >( 0 Out of {{ questions.question.weight }} points )</label>
+    <label *ngIf="questions.user_answer==answer[j]" class="points correct_points">( {{ questions.question.weight }} Out of {{ questions.question.weight }} points )</label>
+    <p class="question">
+      {{ questions.question.description }}
+    </p>
+    <div
+      class="form-check ans"
+      *ngFor="let q of questions.question.choices; let i = index"
+    >
+      <input
+        class="form-check-input"
+        type="radio"
+        [name]="'flexRadioDefault' + i"
+        [id]="'flexRadioDefault1' + i"
+        value="{{ q }}"
+        #check
+        [checked]="questions.user_answer == q"
+        (change)="change_answer(q, questions.question._id, questions)"
+      />
+      <label class="form-check-label" for="flexRadioDefault1"> {{ q }} </label>
+    </div>
+    <div *ngIf="questions.user_answer==answer[j]" class="correct_answer answer ">Correct Answer Is {{answer[j]}} => <span>Accepted</span> </div>
+    <div *ngIf="questions.user_answer!=answer[j]" class="wrong_answer answer" >Correct Answer Is {{answer[j]}} =>  <span>Wrong Answer</span> </div>
+
+  </div>
+
+  <button type="button" class="btn btn-success" (click)="submit()">Submit</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div *ngIf="flag_verify_examcode == true" class="contain">
   <div class="order">Enter Verification Exam code.</div>

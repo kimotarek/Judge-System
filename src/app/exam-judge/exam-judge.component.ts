@@ -9,23 +9,40 @@ import { ModalPopServiceService } from '../service/modal-pop-service.service';
   styleUrls: ['./exam-judge.component.css'],
 })
 export class ExamJudgeComponent {
-  remainingTime: number=0;
-  flag_verify_examcode :boolean;
-  remainingTimeFormatted :any;
-  flag_ten_minute :boolean;
-  flag_ten_more_popup :boolean;
+  remainingTime: number = 0;
+  flag_verify_examcode: boolean;
+  remainingTimeFormatted: any;
+  flag_ten_minute: boolean;
+  flag_ten_more_popup: boolean;
+  flag_answers: boolean;
+  flag_show_answers: any;
+
   constructor(
     private router: Router,
     private service: ServicService,
     private popup: ModalPopServiceService
   ) {
+    //init false
+    this.flag_ten_more_popup = false;
+    this.flag_show_answers = false;
+    this.flag_answers = false;
+    //init true
     this.flag_verify_examcode = true;
-    this.flag_ten_more_popup=false;
     this.flag_ten_minute = true;
   }
-
+  answer: any[] = [9, 9];
+  percentage: any = 90;
   exam: any = {
     mcq: [
+      {
+        question: {
+          _id: '64b56f99458fdc58f340f993',
+          description: 'if(true)print 9 else print 4',
+          choices: ['9', '4', 'Error'],
+          weight: '2',
+        },
+        user_answer: '4',
+      },
       {
         question: {
           _id: '64b56f99458fdc58f340f993',
@@ -47,7 +64,6 @@ export class ExamJudgeComponent {
           constraints: 'dasdasd',
           weight: 10,
         },
-        
       },
       {
         question: {
@@ -59,7 +75,6 @@ export class ExamJudgeComponent {
           constraints: 'dasdasd',
           weight: 10,
         },
-        
       },
     ],
     title: 'java',
@@ -67,44 +82,42 @@ export class ExamJudgeComponent {
     _id: '64b87d34bc3216c6de05dcd1',
   };
 
-  language:any=[
+  language: any = [
     {
-      lan:"",
-      id:"",
-      starter_code:"",
-
+      lan: '',
+      id: '',
+      starter_code: '',
     },
     {
-      lan:"C++",
-      _id:"54",
-      starter_code: "#include <iostream>\n\n int main() {\n std::cout << \"Hello World!\\n\";\n}"
-
+      lan: 'C++',
+      _id: '54',
+      starter_code:
+        '#include <iostream>\n\n int main() {\n std::cout << "Hello World!\\n";\n}',
     },
     {
-      lan:"C",
-      _id:"50",
-      starter_code:"#include <stdio.h>\n\n int main(void) {\n\n return 0;\n}\n"
-
-
-    },{
-      lan:"C#",
-      _id:"51",
-      starter_code:"using System;\n\nclass Program {\n  public static void Main(string[] args) {\n Console.WriteLine(\"Hello World\");\n }\n}"
-
-    },{
-      lan:"java",
-      _id:"91",
-      starter_code:"public class Main {\n public static void main(String[] args) {\n //System.out.println(\"Hello world!\");\n   }\n }"
-
-    },{
-      lan:"Python",
-      _id:"71",
-      starter_code:"",
-
-    }
-  ]
-
-
+      lan: 'C',
+      _id: '50',
+      starter_code:
+        '#include <stdio.h>\n\n int main(void) {\n\n return 0;\n}\n',
+    },
+    {
+      lan: 'C#',
+      _id: '51',
+      starter_code:
+        'using System;\n\nclass Program {\n  public static void Main(string[] args) {\n Console.WriteLine("Hello World");\n }\n}',
+    },
+    {
+      lan: 'java',
+      _id: '91',
+      starter_code:
+        'public class Main {\n public static void main(String[] args) {\n //System.out.println("Hello world!");\n   }\n }',
+    },
+    {
+      lan: 'Python',
+      _id: '71',
+      starter_code: '',
+    },
+  ];
 
   formatTime(time: any) {
     const timeComponents = time.split(' ');
@@ -157,6 +170,12 @@ export class ExamJudgeComponent {
         console.log('Countdown finished!');
         if (this.flag_ten_minute) {
           this.flag_ten_more_popup = true;
+          this.flag_ten_minute = false;
+        } else if (this.flag_show_answers == false) {
+          this.flag_show_answers = true;
+          this.submit();
+        } else {
+          this.router.navigate(['']);
         }
       }
     }, 1000);
@@ -166,40 +185,37 @@ export class ExamJudgeComponent {
     const tenMinutes = 10 * 60 * 1000; // 10 minutes in milliseconds
     const endTime = new Date(Date.now() + tenMinutes);
 
-    console.log(
-      `Countdown from 10 minutes started. It will end at ${endTime.toLocaleTimeString()}`
-    );
+    this.startCountdown(endTime);
+  }
+
+  startCountdownFromFiveMinutes() {
+    const tenMinutes = 10 * 60 * 1000; // 10 minutes in milliseconds
+    const endTime = new Date(Date.now() + tenMinutes);
+
     this.startCountdown(endTime);
   }
   // Example usage:
 
-  change_answer(value: any, mcq_id: any,questions:any) {
+  change_answer(value: any, mcq_id: any, questions: any) {
     console.log(value);
-    questions.user_answer=value;
-    this.service.save_answer(this.exam._id,mcq_id,value).subscribe(
-      x=>{
-    })
+    questions.user_answer = value;
+    this.service.save_answer(this.exam._id, mcq_id, value).subscribe((x) => {});
   }
-
-
 
   send_code(input: any) {
-    this.service.send_exam_code(input).subscribe(
-      x=>{
-        if(x.success==true){
-          this.exam=x.exam
-          console.log(x.exam);
-          //x.exam
-    let endTime = this.formatTime(this.exam.appointment);
-    this.startCountdown(endTime);
-      this.flag_verify_examcode=false;
-        }
-        else{
-          this.popup.open_error("verification code is wrong !");
-        }
-    })
+    this.service.send_exam_code(input).subscribe((x) => {
+      if (x.success == true) {
+        this.exam = x.exam;
+        console.log(x.exam);
+        //x.exam
+        this.flag_verify_examcode = false;
+        let endTime = this.formatTime(this.exam.appointment);
+        this.startCountdown(endTime);
+      } else {
+        this.popup.open_error(x.error);
+      }
+    });
   }
-
 
   need_more_time(value: any) {
     this.flag_ten_more_popup = false;
@@ -209,38 +225,35 @@ export class ExamJudgeComponent {
       this.flag_ten_minute = false;
     } else {
       //submit exam
+      this.submit();
     }
-
   }
 
   submit() {
+    this.service.submit(this.exam._id).subscribe((x) => {
+      console.log(x);
+      if (x.success == true) {
+        this.startCountdownFromFiveMinutes();
+        this.answer = x.result.mcq_answers;
+        this.percentage = x.result.percentage;
+        this.flag_answers=true
+        this.flag_verify_examcode=false
+      } else {
+        this.popup.open_error('Error Occured! Try Agian Or Talk To Admin  ');
+      }
+    });
+  }
 
-    this.service.submit(this.exam._id).subscribe(
-      x=>{
+  check_answer_coding(value: any, coding_id: any, id_lang: any) {
+    this.service
+      .check_answer(this.exam._id, coding_id, value, id_lang)
+      .subscribe((x) => {
         console.log(x);
-        //lsaaa
-
-    })
-    
-  }
-
-
-  check_answer_coding(value: any, coding_id: any,id_lang: any) {
-
-    this.service.check_answer(this.exam._id,coding_id,value,id_lang).subscribe(
-      x=>{
-        if(x.success==true) {
-          this.popup.open_error(x.result.description);
+        if (x.success == true) {
+          this.popup.open_error(x.result);
+        } else {
+          this.popup.open_error(x.error);
         }
-        else{
-          this.popup.open_error("Error Try Again!");
-
-        }
-    })
-
+      });
   }
-
-
-
-
 }

@@ -177,6 +177,31 @@ background-color:#ff0044;
   margin-bottom: 7px;
   color:#003f3d ;
 }
+
+.wrong_answer span{
+   color: red;
+  
+}
+.correct_answer span{
+  color:#008182;
+}
+.answer{
+  text-align: center;
+  font-size: 23px;
+  font-weight: 500;
+
+}
+.correct_points{
+  color:#008182;
+
+}
+.wrong_points{
+  color: red;
+}
+.grade{
+font-size: 45px;
+
+}
 @media only screen and (max-width: 600px) {
   .navbar {
     font-size: 16px;
