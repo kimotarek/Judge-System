@@ -93,8 +93,8 @@ h1 {
 .coding span {
 font-size: 25px;
 color: #003f3d;
-
 }
+
 .ans input {
   border-color: #008182;
   color: #008182;
@@ -113,7 +113,7 @@ color: #003f3d;
 }
 textarea {
   min-height: 180px;
-  max-height: 400px;
+  max-height: fit-content;
 }
 .btn-success {
   transition: 0.4s;
