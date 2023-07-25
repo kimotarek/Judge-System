@@ -1,43 +1,41 @@
-
-
 .contain {
-    background: rgba(0, 0, 0, 0.082);
-    backdrop-filter: blur(5px);
-    color: black;
-    font-size: 48px;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    flex-wrap: wrap;
-    font-weight: 1400;
-    background: rgba(204, 255, 251, 0.111);
-    position: fixed;
-    left: 5%;
-    top: 0%;
-    height: 100vh;
-    width: 100vw;
-  }
-  .close {
-    position: fixed;
-    right: 10%;
-    top: 10%;
-    color: #008182;
-  }
-  .order,
-  h3 {
-    font-size: 10px;
-  }
-  .order {
-    font-size: 24px;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 150%;
-    margin-bottom: 1.5%;
-  }
+  background: rgba(0, 0, 0, 0.082);
+  backdrop-filter: blur(5px);
+  color: black;
+  font-size: 48px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  flex-wrap: wrap;
+  font-weight: 1400;
+  background: rgba(204, 255, 251, 0.111);
+  position: fixed;
+  left: 5%;
+  top: 0%;
+  height: 100vh;
+  width: 100vw;
+}
+.close {
+  position: fixed;
+  right: 10%;
+  top: 10%;
+  color: #008182;
+}
+.order,
+h3 {
+  font-size: 10px;
+}
+.order {
+  font-size: 24px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  margin-bottom: 1.5%;
+}
 * {
   font-family: "Montserrat", sans-serif;
 }
@@ -49,7 +47,9 @@
   background: rgba(0, 129, 130, 0.12);
   background-size: contain;
   position: relative;
+  margin-bottom: 100px;
 }
+
 h1 {
   color: #003f3d;
   font-family: "Montserrat", sans-serif;
@@ -82,17 +82,18 @@ h1 {
 }
 .mcq,
 .coding {
-  position: relative;
   margin: 2%;
-  padding: 2%;
+  padding: 5%;
   border: 1px solid #008182;
   border-radius: 5px;
   box-shadow: 0px 0px 25px 0px rgba(0, 129, 130, 0.47);
+  max-height: fit-content;
+  position: relative;
 }
 
 .coding span {
-font-size: 25px;
-color: #003f3d;
+  font-size: 25px;
+  color: #003f3d;
 }
 
 .ans input {
@@ -121,7 +122,6 @@ textarea {
   background-color: #008182;
   border-color: #008182;
   position: absolute;
-  right: 3%;
   width: 15%;
 }
 .btn-success:hover {
@@ -129,82 +129,97 @@ textarea {
   background-color: #ffffff;
   border-color: #008182;
 }
-.input_verify{
-    width: 36vw;
-    height: 8vh;
-    border-radius: 15px;
-    display: block;
-    margin-bottom:2%;
-    padding: 10px;
-    font-size: 24px;
-    font-weight: 450;
-    color: #003F3D;
+.checkBtn{
+  right: 3%;
 }
-.btn-input{
-    width: 36vw;
-    height: 8vh;
-    border-radius: 15px;
-    font-size: 30px;
-    font-weight: 520;
-    color: white;
-    border: #008182;
-    background-color:#008182;
-    align-items: center;
-    transition: 0.4s;
+.checkBtn,.submitBtn{
+  margin-right: 5%;
+  margin-top: 1%;
 }
-.btn-input:hover{
-    border: 1px #000 solid;
-    background-color:white ;
-    color:#008182;
- }
-
- 
-.btn-yes{
+.submitBtn{
+  width: 100%;
+  margin:auto;
+  margin-bottom: 5%;
+  padding: 1%;
+  font-size: 20px;
+  font-weight: 600;
+}
+.input_verify {
+  width: 36vw;
+  height: 8vh;
+  border-radius: 15px;
   display: block;
-
+  margin-bottom: 2%;
+  padding: 10px;
+  font-size: 24px;
+  font-weight: 450;
+  color: #003f3d;
 }
-.btn-no{
-background-color:#ff0044;
+.btn-input {
+  width: 36vw;
+  height: 8vh;
+  border-radius: 15px;
+  font-size: 30px;
+  font-weight: 520;
+  color: white;
+  border: #008182;
+  background-color: #008182;
+  align-items: center;
+  transition: 0.4s;
 }
-.btn-no:hover{
+.btn-input:hover {
   border: 1px #000 solid;
-  background-color:white ;
-  color:#ff0044;
+  background-color: white;
+  color: #008182;
 }
-#language{
+
+.btn-yes {
+  display: block;
+}
+.btn-no {
+  background-color: #ff0044;
+}
+.btn-no:hover {
+  border: 1px #000 solid;
+  background-color: white;
+  color: #ff0044;
+}
+#language {
   border-radius: 8px;
   margin-top: 5px;
   margin-bottom: 7px;
-  color:#003f3d ;
+  color: #003f3d;
 }
 
-.wrong_answer span{
-   color: red;
-  
+.wrong_answer span {
+  color: red;
 }
-.correct_answer span{
-  color:#008182;
+.correct_answer span {
+  color: #008182;
 }
-.answer{
+.answer {
   text-align: center;
   font-size: 23px;
   font-weight: 500;
-
 }
-.correct_points{
-  color:#008182;
-
+.correct_points {
+  color: #008182;
 }
-.wrong_points{
+.wrong_points {
   color: red;
 }
-.grade{
-font-size: 45px;
-
+.grade {
+  font-size: 45px;
 }
 @media only screen and (max-width: 600px) {
   .navbar {
     font-size: 16px;
     font-weight: 400;
+  }
+  .btn-success{
+    font-size: 12px;
+  }
+  p{
+    font-size: 12px;
   }
 }
