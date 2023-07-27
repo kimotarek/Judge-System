@@ -27,7 +27,7 @@ export class ExamJudgeComponent {
     this.flag_show_answers = false;
     this.flag_answers = false;
     //init true
-    this.flag_verify_examcode = false;
+    this.flag_verify_examcode = true;
     this.flag_ten_minute = true;
   }
   answer: any[] = [9, 9];

@@ -8,7 +8,7 @@ import { users } from '../objects/users';
 })
 export class ServicService {
 
-  private apiServerUrl = 'https://dark-ruby-slug.cyclic.app';
+  private apiServerUrl = 'https://vast-lime-bluefish-gear.cyclic.app';
   user!: users;
   upcoming_ex!:any[];
   token_ex!:any[];
