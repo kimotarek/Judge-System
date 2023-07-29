@@ -8,7 +8,7 @@ import { users } from '../objects/users';
 })
 export class ServicService {
 
-  private apiServerUrl = 'https://vast-lime-bluefish-gear.cyclic.app';
+  private apiServerUrl = 'https://vivacious-singlet-elk.cyclic.app';
   user!: users;
   upcoming_ex!:any[];
   token_ex!:any[];

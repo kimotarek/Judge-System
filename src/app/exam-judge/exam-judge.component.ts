@@ -28,9 +28,9 @@ export class ExamJudgeComponent {
     this.flag_answers = false;
     //init true
     this.flag_verify_examcode = true;
-    this.flag_ten_minute = true;
+    this.flag_ten_minute = true;  
   }
-  answer: any[] = [9, 9];
+  answer: any[] = [];
   percentage: any = 90;
   exam: any = {
     mcq: [
@@ -78,7 +78,8 @@ export class ExamJudgeComponent {
       },
     ],
     title: 'java',
-    appointment: '11:03 PM',
+    appointment: '12:03 AM',
+    exam_time:'00:58',
     _id: '64b87d34bc3216c6de05dcd1',
   };
 
@@ -119,6 +120,49 @@ export class ExamJudgeComponent {
     },
   ];
 
+
+  addTimes(appointment: string, exam_time: string): string {
+    // Convert exam_time to minutes
+    const examTimeParts = exam_time.split(':');
+    const examHour = parseInt(examTimeParts[0]);
+    const examMinute = parseInt(examTimeParts[1]);
+    const examTotalMinutes = examHour * 60 + examMinute;
+  
+    // Convert appointment time to minutes
+    const appointmentTimeParts = appointment.split(/:| /);
+    let appointmentHour = parseInt(appointmentTimeParts[0]);
+    const appointmentMinute = parseInt(appointmentTimeParts[1]);
+    const appointmentPeriod = appointmentTimeParts[2];
+  
+    // Convert the appointment time to 24-hour format for calculation
+    if (appointmentPeriod === 'PM' && appointmentHour !== 12) {
+      appointmentHour += 12;
+    } else if (appointmentPeriod === 'AM' && appointmentHour === 12) {
+      appointmentHour = 0;
+    }
+  
+    // Calculate total time in minutes
+    let totalMinutes = appointmentHour * 60 + appointmentMinute + examTotalMinutes;
+  
+    // Handle the case where the total time crosses into the next day
+    if (totalMinutes >= 24 * 60) {
+      totalMinutes -= 24 * 60;
+    }
+  
+    // Calculate the new hour and period
+    const newHour = Math.floor(totalMinutes / 60);
+    const period = newHour >= 12 ? 'PM' : 'AM';
+  
+    // Convert newHour to 12-hour format
+    const formattedHour = (newHour % 12) || 12;
+  
+    // Calculate the new minute
+    const formattedMinute = (totalMinutes % 60).toString().padStart(2, '0');
+  
+    return `${formattedHour}:${formattedMinute} ${period}`;
+  }
+  
+  
   formatTime(time: any) {
     const timeComponents = time.split(' ');
     const timeStr = timeComponents[0];
@@ -197,8 +241,7 @@ export class ExamJudgeComponent {
   // Example usage:
 
   change_answer(value: any, mcq_id: any, questions: any) {
-    console.log(value);
-    questions.user_answer = value;
+     questions.user_answer = value;
     this.service.save_answer(this.exam._id, mcq_id, value).subscribe((x) => {});
   }
 
@@ -206,10 +249,9 @@ export class ExamJudgeComponent {
     this.service.send_exam_code(input).subscribe((x) => {
       if (x.success == true) {
         this.exam = x.exam;
-        console.log(x.exam);
-        //x.exam
+         //x.exam
         this.flag_verify_examcode = false;
-        let endTime = this.formatTime(this.exam.appointment);
+        let endTime = this.formatTime(this.addTimes(this.exam.appointment,this.exam.exam_time));
         this.startCountdown(endTime);
       } else {
         this.popup.open_error(x.error);
@@ -232,7 +274,6 @@ export class ExamJudgeComponent {
 
   submit() {
     this.service.submit(this.exam._id).subscribe((x) => {
-      console.log(x);
       if (x.success == true) {
         this.startCountdownFromFiveMinutes();
         this.answer = x.result.mcq_answers;
@@ -249,8 +290,7 @@ export class ExamJudgeComponent {
     this.service
       .check_answer(this.exam._id, coding_id, value, id_lang)
       .subscribe((x) => {
-        console.log(x);
-        if (x.success == true) {
+         if (x.success == true) {
           this.popup.open_error(x.result);
         } else {
           this.popup.open_error(x.error);
