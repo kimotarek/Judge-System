@@ -8,7 +8,7 @@ import { users } from '../objects/users';
 })
 export class ServicService {
 
-  private apiServerUrl = 'https://thoughtful-ox-baseball-cap.cyclic.cloud';
+  private apiServerUrl = 'https://exam-system-457n.onrender.com';
   user!: users;
   upcoming_ex!:any[];
   token_ex!:any[];

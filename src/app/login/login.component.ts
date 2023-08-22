@@ -3,6 +3,7 @@ import { users } from '../objects/users';
 import { ServicService } from '../service/services.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ModalPopServiceService } from '../service/modal-pop-service.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
     user: users,
     private service: ServicService,
     private router: Router,
-    // private pop_service: ModalPopServiceService,
+    private pop_service: ModalPopServiceService,
     private route: ActivatedRoute
   ) {
     this.user_login = user;
@@ -34,7 +35,7 @@ export class LoginComponent {
        if (x.success == 1) {
         this.router.navigate(['/judge']);
       } else {
-        // this.pop_service.open_error_login();
+        this.pop_service.open_error_login();
       }
 
       error: (error: HttpErrorResponse) => {
